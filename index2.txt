@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>三國群英傳-策定九州 | 正統三國武俠國戰鉅作</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#120f11",
+            crimson: "#c92a2a",
+            bronze: "#caa46b",
+            darkgold: "#8b6a3f",
+          },
+          fontFamily: {
+            wuxia: ['"ZCOOL XiaoWei"', "serif"],
+            body: ['"Noto Serif TC"', "serif"],
+          }
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      font-family: "Noto Serif TC", serif;
+      background-color: #080608;
+      color: #f5f5f5;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* 頂部導覽固定陰影 */
+    .nav-blur {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* 大標金色文字質感 */
+    .gold-title {
+      text-shadow: 0 0 10px rgba(202, 164, 107, 0.7),
+        0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    /* 破紙感分隔 */
+    .tear-top::before,
+    .tear-bottom::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background-repeat: repeat-x;
+      background-size: 80px 40px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .tear-top::before {
+      top: -38px;
+      background-image: url("https://transparenttextures.com/patterns/rice-paper-2.png");
+      mix-blend-mode: multiply;
+    }
+
+    .tear-bottom::after {
+      bottom: -38px;
+      background-image: url("https://transparenttextures.com/patterns/rice-paper-2.png");
+      mix-blend-mode: multiply;
+      transform: rotate(180deg);
+    }
+
+    /* CTA 按鈕 */
+    .btn-main {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-main::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .btn-main:hover::after {
+      transform: translateX(100%);
+    }
+
+    /* HERO 角色浮動發光 */
+    @keyframes heroFloat {
+      0%   { transform: translate3d(0,0,0); }
+      50%  { transform: translate3d(0,-16px,0); }
+      100% { transform: translate3d(0,0,0); }
+    }
+
+    .hero-char {
+      filter:
+        drop-shadow(0 0 18px rgba(255,220,180,0.95))
+        drop-shadow(0 0 42px rgba(255,120,80,0.8));
+      animation: heroFloat 7s ease-in-out infinite;
+      transform-origin: bottom center;
+      pointer-events: none;
+    }
+
+    .hero-char-side {
+      filter:
+        drop-shadow(0 0 14px rgba(255,210,190,0.9))
+        drop-shadow(0 0 30px rgba(255,120,160,0.7));
+      animation-duration: 9s;
+      opacity: 0.95;
+    }
+
+    .hero-char-side:nth-child(2) {
+      animation-delay: 1.2s;
+    }
+    .hero-char-side:nth-child(3) {
+      animation-delay: 2.1s;
+    }
+  </style>
+</head>
+<body class="bg-black">
+
+  <!-- NAV -->
+  <header
+    class="fixed top-0 inset-x-0 z-40 border-b border-white/10 bg-black/70 nav-blur"
+    id="topNav"
+  >
+    <div
+      class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 flex items-center justify-between h-16"
+    >
+      <div class="flex items-center gap-3">
+        <!-- LOGO -->
+        <img
+          src="三國群英傳-策定九州logo_繁中版.png"
+          alt="三國群英傳-策定九州"
+          class="h-10 object-contain"
+        />
+        <span
+          class="hidden md:inline-block text-xs text-bronze/80 tracking-[0.35em] font-wuxia"
+          >策定九州 · 天下唯我</span
+        >
+      </div>
+
+      <nav
+        class="hidden md:flex items-center gap-8 text-sm font-wuxia tracking-[0.25em]"
+      >
+        <a href="#section1" class="hover:text-crimson transition-colors"
+          >下載有禮</a
+        >
+        <a href="#section2" class="hover:text-crimson transition-colors"
+          >升級豪禮</a
+        >
+        <a href="#section3" class="hover:text-crimson transition-colors"
+          >特別活動</a
+        >
+        <a href="#footer" class="hover:text-crimson transition-colors"
+          >活動說明</a
+        >
+      </nav>
+
+      <a
+        href="#section1"
+        class="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-sm border border-bronze bg-gradient-to-b from-crimson to-rose-900 text-sm font-wuxia tracking-[0.25em] btn-main shadow-[0_0_18px_rgba(201,42,42,0.55)]"
+      >
+        <i class="fa-solid fa-download"></i>
+        立即下載
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO：春节背景 + 周瑜主視覺 -->
+  <section 
+    class="relative bg-cover bg-center min-h-[880px] text-white flex items-end"
+    style="background-image: url('春节.png'); background-position: center bottom;"
+  >
+    <!-- 右側淡暗遮罩，讓文案更清楚但整體維持明亮喜慶 -->
+    <div class="absolute inset-0 bg-gradient-to-l from-black/35 via-black/15 to-transparent"></div>
+
+    <!-- 角色群像：背景前、文字後 -->
+    <div class="absolute inset-x-0 bottom-0 z-10 pointer-events-none">
+      <div class="max-w-6xl mx-auto px-6 flex items-end justify-between">
+        <!-- 左：主角 周瑜 -->
+        <div class="flex-1 flex justify-start">
+          <img
+            src="Z_周瑜.png"
+            alt="周瑜"
+            class="hero-char w-[55vw] max-w-[520px] translate-y-6"
+          />
+        </div>
+
+        <!-- 右：配角 貂蟬 + 小喬們（桌機顯示） -->
+        <div class="hidden md:flex flex-[0.9] justify-end gap-4 items-end">
+          <img
+            src="貂蝉.png"
+            alt="貂蟬"
+            class="hero-char-side w-[18vw] max-w-[230px]"
+          />
+          <img
+            src="Y11小乔.png"
+            alt="小喬"
+            class="hero-char-side w-[16vw] max-w-[200px]"
+          />
+          <img
+            src="X_小乔.png"
+            alt="小喬·春日"
+            class="hero-char-side w-[16vw] max-w-[200px]"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO 文案：置右，層級最高 -->
+    <div class="relative z-20 w-full max-w-6xl mx-auto px-6 pb-24 pt-40 flex flex-col items-end">
+      <!-- LOGO -->
+      <div class="mb-8 text-right">
+        <img 
+          src="三國群英傳-策定九州logo_繁中版.png"
+          alt="三國群英傳-策定九州"
+          class="w-full max-w-2xl drop-shadow-[0_0_25px_rgba(0,0,0,0.9)]"
+        />
+      </div>
+
+      <!-- 主文案 -->
+      <div class="max-w-3xl space-y-4 text-right">
+        <!-- 小標 -->
+        <p class="inline-block bg-black/55 border border-bronze px-4 py-1 
+                  text-xs font-wuxia tracking-[0.3em] shadow-lg backdrop-blur-sm">
+          春節喜迎 · 事前預約盛典開跑
+        </p>
+
+        <!-- 標語 -->
+        <h1 class="text-4xl md:text-5xl font-wuxia gold-title leading-relaxed drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
+          燈火萬家 · 赤焰周郎  
+          <br class="hidden md:block">
+          <span class="text-bronze">事前預約開跑 · 預約送SSR貂蟬</span>
+        </h1>
+
+        <!-- 簡述 -->
+        <p class="text-base md:text-lg text-gray-100 font-body leading-relaxed drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+          春節煙花照亮江東夜空，周瑜執掌戰局，紅顏環伺。<br>
+          立即完成預約，開服登入即可免費獲得
+          <span class="text-yellow-200 font-wuxia">SSR 貂蟬</span>，
+          再享限定外觀與專屬稱號，與周郎共定九州！
+        </p>
+
+        <!-- CTA 按鈕 -->
+        <div class="mt-8 flex flex-wrap gap-4 justify-end">
+          <a 
+            href="#section1"
+            class="btn-main inline-flex items-center px-10 py-4 rounded-sm
+                   border border-bronze bg-gradient-to-b from-crimson to-[#8a1c1c]
+                   font-wuxia text-xl tracking-[0.3em] shadow-[0_0_28px_rgba(201,42,42,0.7)]
+                   hover:scale-105 transition-transform">
+            <i class="fa-solid fa-flag mr-3"></i> 我要預約
+          </a>
+
+          <a 
+            href="#section3"
+            class="inline-flex items-center px-6 py-4 bg-black/55 border border-white/20 
+                   rounded-sm text-base font-wuxia tracking-[0.3em]
+                   hover:border-bronze hover:text-bronze backdrop-blur-sm transition-all">
+            <i class="fa-solid fa-play mr-3"></i> 查看活動詳情
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SECTION 1：下載有禮 -->
+  <section id="section1" class="relative bg-[rgb(160,26,26)] tear-top tear-bottom">
+    <div class="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/rice-paper-2.png')] opacity-40 mix-blend-multiply"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-20 md:py-24">
+      <div class="grid md:grid-cols-[1.1fr,1fr] gap-8 md:gap-10 items-center">
+        <!-- 左側：角色＋KV -->
+        <div class="relative">
+          <img
+            src="https://images.unsplash.com/photo-1549887534-3db1bd59dcca?q=80&w=900&auto=format&fit=crop"
+            alt="戰場場景"
+            class="w-full rounded-md shadow-[0_0_40px_rgba(0,0,0,0.8)]"
+          />
+          <div
+            class="absolute -left-3 -top-3 bg-black/80 text-xs font-wuxia tracking-[0.35em] px-3 py-1 border border-bronze"
+          >
+            下載有禮 · 悠然上線
+          </div>
+        </div>
+
+        <!-- 右側：文字＋獎勵 -->
+        <div class="space-y-5 text-white">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-wuxia leading-relaxed">
+            步入亂世，<span class="text-yellow-200">下載即送</span>豪華新手禮
+          </h2>
+          <p class="text-sm sm:text-base font-body leading-relaxed">
+            活動期間內於 TGP
+            下載並安裝《三國群英傳-策定九州》，首次登入即自動發放「全民有禮」獎勵。
+          </p>
+
+          <ol class="space-y-3 text-sm font-body">
+            <li>
+              <span class="font-wuxia text-yellow-100 mr-2">01 全服新兵禮</span>
+              只要登入即可獲得武將碎片、元寶、銅錢與體力丹等實用資源。
+            </li>
+            <li>
+              <span class="font-wuxia text-yellow-100 mr-2">02 戰神青銅寶匣</span>
+              完成新手任務線，即可開啟內含紫色以上裝備的寶匣。
+            </li>
+          </ol>
+
+          <!-- 獎勵圖格 -->
+          <div
+            class="mt-6 grid grid-cols-4 gap-2 sm:gap-3 text-[11px] sm:text-xs font-wuxia"
+          >
+            <div
+              class="bg-black/50 border border-bronze/60 p-2 flex flex-col items-center justify-center"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-yellow-300 to-orange-500 rounded-sm mb-1"
+              ></div>
+              <span>橙品武將碎片</span>
+              <span class="text-yellow-200">x10</span>
+            </div>
+            <div
+              class="bg-black/50 border border-bronze/60 p-2 flex flex-col items-center justify-center"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-sky-300 to-blue-700 rounded-sm mb-1"
+              ></div>
+              <span>元寶</span>
+              <span class="text-yellow-200">x300</span>
+            </div>
+            <div
+              class="bg-black/50 border border-bronze/60 p-2 flex flex-col items-center justify-center"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-amber-200 to-amber-500 rounded-sm mb-1"
+              ></div>
+              <span>銅錢</span>
+              <span class="text-yellow-200">x10萬</span>
+            </div>
+            <div
+              class="bg-black/50 border border-bronze/60 p-2 flex flex-col items-center justify-center"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-emerald-200 to-emerald-500 rounded-sm mb-1"
+              ></div>
+              <span>體力丹</span>
+              <span class="text-yellow-200">x5</span>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <a
+              href="#"
+              class="inline-flex items-center px-6 py-3 rounded-sm border border-black/40 bg-black/60 text-xs sm:text-sm font-wuxia tracking-[0.35em] hover:bg-black/80"
+            >
+              <i class="fa-solid fa-gift mr-3"></i> 一鍵領取下載禮
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2：升級雙重禮 -->
+  <section
+    id="section2"
+    class="relative bg-gradient-to-b from-[#2e2015] via-[#3b2a1a] to-[#140d09] tear-bottom"
+  >
+    <div class="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/asfalt-dark.png')] opacity-40"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-20 md:py-24">
+      <div class="grid md:grid-cols-[1.1fr,1fr] gap-8 md:gap-10 items-center">
+        <!-- 左：文字區 -->
+        <div class="space-y-5 text-white">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-wuxia leading-relaxed">
+            斬妖除魔，<span class="text-bronze">升級贏雙重寶匣</span>
+          </h2>
+          <p class="text-sm sm:text-base font-body leading-relaxed">
+            活動期間內，角色達指定等級，即可依序領取「月牙花果山寶匣」與「白銀戰場寶匣」。
+            多種強力裝備、坐騎與外觀任你選擇。
+          </p>
+
+          <!-- 2 個等級階段 -->
+          <div class="space-y-4 text-sm font-body">
+            <div class="bg-black/40 border border-bronze/60 p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-wuxia text-yellow-100 text-base"
+                  >角色達 15 級</span
+                >
+                <span class="text-xs text-gray-300">月牙花果山寶匣</span>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >紫品武器箱 x1</span
+                >
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >坐騎：白狐 x1</span
+                >
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >強化石 x50</span
+                >
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >綁元 x200</span
+                >
+              </div>
+            </div>
+
+            <div class="bg-black/40 border border-bronze/60 p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-wuxia text-yellow-100 text-base"
+                  >角色達 30 級</span
+                >
+                <span class="text-xs text-gray-300">白銀戰場寶匣</span>
+              </div>
+              <div class="flex flex-wrap gap-2 text-[11px]">
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >橙品武器箱 x1</span
+                >
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >稀有披風外觀 x1</span
+                >
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >坐騎升星石 x20</span
+                >
+                <span class="px-2 py-1 bg-yellow-800/40 border border-yellow-600/60"
+                  >洗煉石 x100</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <p class="text-xs text-gray-300">
+            ※ 每一帳號僅限領取一次，實際獎勵內容以遊戲內公告為準。
+          </p>
+        </div>
+
+        <!-- 右：大武將圖 -->
+        <div class="relative">
+          <img
+            src="https://images.unsplash.com/photo-1618004912476-29818d81ae2e?q=80&w=900&auto=format&fit=crop"
+            alt="戰場武將"
+            class="w-full rounded-md shadow-[0_0_50px_rgba(0,0,0,0.9)] object-cover"
+          />
+          <div
+            class="absolute -right-3 -top-3 bg-black/80 text-xs font-wuxia tracking-[0.35em] px-3 py-1 border border-bronze"
+          >
+            亂世猛將 · 一騎當千
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3：月光寶盒／特別活動 -->
+  <section
+    id="section3"
+    class="relative bg-gradient-to-b from-[#1f1530] via-[#120f18] to-black"
+  >
+    <div class="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/black-linen.png')] opacity-40"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-20 md:py-24">
+      <div class="grid md:grid-cols-[1fr,1.1fr] gap-8 md:gap-10 items-center">
+        <!-- 左：角色＋寶箱 -->
+        <div class="relative">
+          <img
+            src="https://images.unsplash.com/photo-1578926502276-01c9249d107f?q=80&w=900&auto=format&fit=crop"
+            alt="妖魔與寶箱"
+            class="w-full rounded-md shadow-[0_0_40px_rgba(0,0,0,0.9)]"
+          />
+          <div
+            class="absolute -left-3 -top-3 bg-black/80 text-xs font-wuxia tracking-[0.35em] px-3 py-1 border border-bronze"
+          >
+            月光寶盒 · 限時活動
+          </div>
+        </div>
+
+        <!-- 右：玩法說明 -->
+        <div class="space-y-5 text-white">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-wuxia leading-relaxed">
+            月光寶盒，<span class="text-purple-200">翻轉命運</span>抽豪禮
+          </h2>
+          <p class="text-sm sm:text-base font-body leading-relaxed">
+            完成每日任務與副本挑戰，可獲得「月光碎片」，集滿一定數量即可啟動月光寶盒，有機會獲得永久稱號、限定時裝與珍稀坐騎。
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 text-[11px] sm:text-xs font-wuxia">
+            <div class="bg-black/50 border border-purple-500/60 p-3">
+              <p class="mb-1 text-purple-100">普通寶盒</p>
+              <ul class="space-y-1 text-gray-200">
+                <li>· 紫品裝備、強化石、銅錢</li>
+                <li>· 日常消耗品</li>
+              </ul>
+            </div>
+            <div class="bg-black/50 border border-purple-400/80 p-3">
+              <p class="mb-1 text-purple-100">稀有寶盒</p>
+              <ul class="space-y-1 text-gray-200">
+                <li>· 橙品武器、限定稱號</li>
+                <li>· 稀有坐騎、時裝外觀</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="text-xs text-gray-300">
+            ※ 月光寶盒僅於活動期間開放，詳細獎項與機率請見遊戲內【活動說明】。
+          </p>
+
+          <div class="mt-4">
+            <a
+              href="#"
+              class="inline-flex items-center px-6 py-3 rounded-sm border border-purple-300 bg-black/70 text-xs sm:text-sm font-wuxia tracking-[0.3em] hover:bg-purple-900/40"
+            >
+              <i class="fa-solid fa-moon mr-3"></i> 查看月光寶盒獎勵一覽
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部：優勢＋版權 -->
+  <footer
+    id="footer"
+    class="bg-black border-t border-white/10 text-gray-400 text-xs sm:text-sm"
+  >
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-10">
+      <!-- 優勢列 -->
+      <div
+        class="grid sm:grid-cols-4 gap-6 pb-8 border-b border-white/10 text-center"
+      >
+        <div class="space-y-2">
+          <div
+            class="w-10 h-10 rounded-full border border-bronze flex items-center justify-center mx-auto text-bronze"
+          >
+            <i class="fa-solid fa-gamepad"></i>
+          </div>
+          <p class="font-wuxia tracking-[0.25em]">極致打擊感</p>
+          <p class="font-body text-[11px]">
+            物理碰撞與特效加強，刀刀入肉，拳拳到肉。
+          </p>
+        </div>
+        <div class="space-y-2">
+          <div
+            class="w-10 h-10 rounded-full border border-bronze flex items-center justify-center mx-auto text-bronze"
+          >
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <p class="font-wuxia tracking-[0.25em]">千人國戰</p>
+          <p class="font-body text-[11px]">
+            即時攻城、聯盟混戰，還原三國宏大戰場。
+          </p>
+        </div>
+        <div class="space-y-2">
+          <div
+            class="w-10 h-10 rounded-full border border-bronze flex items-center justify-center mx-auto text-bronze"
+          >
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <p class="font-wuxia tracking-[0.25em]">神兵坐騎</p>
+          <p class="font-body text-[11px]">
+            方天畫戟、青龍偃月刀與赤兔馬等你蒐集。
+          </p>
+        </div>
+        <div class="space-y-2">
+          <div
+            class="w-10 h-10 rounded-full border border-bronze flex items-center justify-center mx-auto text-bronze"
+          >
+            <i class="fa-solid fa-shield"></i>
+          </div>
+          <p class="font-wuxia tracking-[0.25em]">帳號守護</p>
+          <p class="font-body text-[11px]">
+            多重防護機制，確保主公帳號與虛寶安全。
+          </p>
+        </div>
+      </div>
+
+      <!-- LOGO + 版權 -->
+      <div
+        class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6"
+      >
+        <div class="flex items-center gap-4">
+          <img
+            src="三國群英傳-策定九州logo_繁中版.png"
+            alt="三國群英傳-策定九州"
+            class="h-10 opacity-80"
+          />
+          <div>
+            <p class="font-wuxia text-bronze text-sm tracking-[0.25em]">
+              三國群英傳-策定九州
+            </p>
+            <p class="font-body text-[11px] text-gray-500 mt-1">
+              © 2025 宇峻奧汀科技股份有限公司 USERJOY Technology Co., Ltd. All
+              Rights Reserved.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-[11px] font-body text-gray-500">
+          <p>本遊戲內容涉及暴力情節（可愛人物打鬥）。</p>
+          <p>請注意遊戲時間，避免沉迷。部份內容需另行付費。</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
